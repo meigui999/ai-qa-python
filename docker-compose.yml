@@ -1,0 +1,56 @@
+# AI智能文档问答系统（Python版）
+# 基于 FastAPI + LangChain + ChromaDB + 通义千问
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ai-qa-py-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: ai-qa-py-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: "123456"
+      DB_NAME: ai_qa_db
+      LLM_API_KEY: ${LLM_API_KEY:-sk-2330ac708d964ca3b86e3f7037988f07}
+      LLM_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
+      LLM_MODEL: qwen-turbo
+      EMBEDDING_MODEL: text-embedding-v2
+    volumes:
+      - upload_data:/data/uploads
+      - chroma_data:/data/chroma
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: ai-qa-py-frontend
+    ports:
+      - "82:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  upload_data:
+  chroma_data:

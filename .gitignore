@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Environment
+.env
+backend/.env
+
+# Upload data
+uploads/
+chroma_data/
+
+# Node
+node_modules/
+dist/
+
+# Docker volumes
+*.log
+
+# IDE
+.vscode/
+.idea/
