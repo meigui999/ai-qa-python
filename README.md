@@ -6,7 +6,7 @@
 
 - **后端**：Python 3.11 / FastAPI / SQLAlchemy
 - **RAG**：LangChain + ChromaDB（向量检索）+ 通义千问 Embedding
-- **大模型**：通义千问（DashScope OpenAI兼容接口）/ SSE流式输出
+- **大模型**：deepseek v4（DashScope OpenAI兼容接口）/ SSE流式输出
 - **前端**：Vue 3 + Vite + Element Plus
 - **部署**：Docker Compose（MySQL + FastAPI + Nginx）
 
