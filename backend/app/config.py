@@ -2,8 +2,11 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    # 数据库类型 (sqlite 或 mysql)
+    DB_TYPE: str = "sqlite"
+    
     # 数据库
-    DB_HOST: str = "mysql"
+    DB_HOST: str = "localhost"
     DB_PORT: int = 3306
     DB_USER: str = "root"
     DB_PASSWORD: str = "123456"

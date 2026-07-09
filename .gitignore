@@ -23,3 +23,11 @@ dist/
 # IDE
 .vscode/
 .idea/
+
+# Local SQLite and Vector DB
+*.db
+backend/ai_qa_db.db
+backend/chroma/
+
+# Node cache
+frontend/.npm_cache/

@@ -1,5 +1,6 @@
 import os
 import uuid
+from typing import Optional
 from datetime import datetime
 from pathlib import Path
 
@@ -69,7 +70,7 @@ def list_documents(db: Session, user_id: int) -> list[Document]:
     )
 
 
-def get_document(db: Session, doc_id: int) -> Document | None:
+def get_document(db: Session, doc_id: int) -> Optional[Document]:
     return db.query(Document).filter(Document.id == doc_id).first()
 
 

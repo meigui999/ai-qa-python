@@ -1,4 +1,4 @@
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Optional
 
 from openai import OpenAI
 
@@ -8,7 +8,7 @@ from app.config import settings
 client = OpenAI(api_key=settings.LLM_API_KEY, base_url=settings.LLM_BASE_URL)
 
 
-def chat_stream(prompt: str, history: list[dict] | None = None) -> AsyncGenerator[str, None]:
+def chat_stream(prompt: str, history: Optional[list[dict]] = None) -> AsyncGenerator[str, None]:
     """调用大模型API，返回SSE流式输出的生成器"""
     messages = [
         {
